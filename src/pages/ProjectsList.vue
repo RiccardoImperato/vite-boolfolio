@@ -51,7 +51,7 @@ export default {
             <h2 class="mt-4">Progetti</h2>
             <div class="row">
                 <ProjectCard v-for="project in responseData.results?.data" :title="project.title"
-                    :description="project.description" />
+                    :description="project.description" :slug="project.slug" />
             </div>
             <nav class="my-5">
                 <ul class="d-flex justify-content-center gap-4 list-unstyled">
