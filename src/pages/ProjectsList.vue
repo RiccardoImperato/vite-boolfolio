@@ -57,14 +57,20 @@ export default {
                 <ul class="d-flex justify-content-center gap-4 list-unstyled">
                     <li>
                         <button class="btn btn-primary" @click="prevPage"
-                            v-show="responseData.results?.prev_page_url">prev</button>
+                            v-show="responseData.results?.prev_page_url">&blacktriangleleft;</button>
                     </li>
                     <li>
                         <button class="btn btn-primary" @click="nextPage"
-                            v-show="responseData.results?.next_page_url">next</button>
+                            v-show="responseData.results?.next_page_url">&blacktriangleright;</button>
                     </li>
                 </ul>
             </nav>
         </div>
     </main>
 </template>
+
+<style scoped lang="scss">
+button {
+    font-size: 20px;
+}
+</style>
