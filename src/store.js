@@ -9,6 +9,7 @@ const store = reactive({
     },
     projects: {
         searchKey: null,
+        currentPage: 1,
     }
 });
 
