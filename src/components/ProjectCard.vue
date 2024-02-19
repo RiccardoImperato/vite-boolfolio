@@ -2,9 +2,7 @@
 export default {
     name: 'ProjectCard',
     props: {
-        title: String,
-        description: String,
-        slug: String,
+        project: Object
     },
 
 };
@@ -15,10 +13,10 @@ export default {
         <div class="card">
             <div class="card-body d-flex flex-column justify-content-between align-items-start">
                 <div>
-                    <h4 class="card-title mb-3">{{ title }}</h4>
-                    <p class="card-text">{{ description }}</p>
+                    <h4 class="card-title mb-3">{{ project.title }}</h4>
+                    <p class="card-text">{{ project.description }}</p>
                 </div>
-                <router-link :to="{ name: 'single-project', params: { slug: slug } }"
+                <router-link :to="{ name: 'single-project', params: { slug: project.slug } }"
                     class="btn btn-primary">Dettagli</router-link>
             </div>
         </div>
