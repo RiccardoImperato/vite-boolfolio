@@ -4,7 +4,11 @@ export default {
     props: {
         project: Object
     },
-
+    computed: {
+        projectDesc() {
+            return this.project.description?.substring(0, 100) + ' ...';
+        }
+    }
 };
 </script>
 
@@ -14,7 +18,7 @@ export default {
             <div class="card-body d-flex flex-column justify-content-between align-items-start">
                 <div>
                     <h4 class="card-title mb-3">{{ project.title }}</h4>
-                    <p class="card-text">{{ project.description }}</p>
+                    <p class="card-text">{{ projectDesc }}</p>
                 </div>
                 <router-link :to="{ name: 'single-project', params: { slug: project.slug } }"
                     class="btn btn-primary">Dettagli</router-link>
