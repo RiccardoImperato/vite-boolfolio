@@ -7,6 +7,9 @@ const store = reactive({
             'projects': 'api/projects'
         },
     },
+    projects: {
+        searchKey: null,
+    }
 });
 
 export default store;

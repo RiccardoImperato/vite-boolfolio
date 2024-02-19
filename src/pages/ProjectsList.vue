@@ -2,6 +2,7 @@
 import axios from 'axios';
 import ProjectCard from '../components/ProjectCard.vue';
 import store from '../store'
+import ProjectSearch from '../components/ProjectSearch.vue';
 
 export default {
     name: 'ProjectsList',
@@ -14,13 +15,15 @@ export default {
         }
     },
     components: {
-        ProjectCard
+        ProjectCard,
+        ProjectSearch
     },
     methods: {
         getProjects() {
             axios.get(this.store.api.baseUrl + this.store.api.apiUrls.projects, {
                 params: {
-                    page: this.currentPage
+                    page: this.currentPage,
+                    key: this.store.projects.searchKey,
                 }
             }).then(response => {
                 this.responseData = response.data
@@ -50,6 +53,7 @@ export default {
     <main>
         <div class="container">
             <h2 class="mt-4">Progetti</h2>
+            <ProjectSearch @search-project="getProjects" />
             <div class="row">
                 <ProjectCard v-for="project in responseData.results?.data" :project="project" />
             </div>
