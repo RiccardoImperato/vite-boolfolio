@@ -9,8 +9,8 @@ export default {
     data() {
         return {
             store,
-            currentPage: 1,
             responseData: {},
+            errors: null,
             'projects': [],
         }
     },
@@ -20,30 +20,34 @@ export default {
     },
     methods: {
         getProjects() {
+            this.errors = null;
             axios.get(this.store.api.baseUrl + this.store.api.apiUrls.projects, {
                 params: {
-                    page: this.currentPage,
+                    page: this.store.projects.currentPage,
                     key: this.store.projects.searchKey,
                 }
             }).then(response => {
                 this.responseData = response.data
             }).catch((error) => {
                 console.log(error);
+                this.responseData.results.data = [];
+                this.errors = error.response.data.message;
             });
         },
         nextPage() {
-            this.currentPage++;
-            this.$router.push({ name: 'projects', query: { page: this.currentPage } });
+            this.store.projects.currentPage++;
+            this.$router.push({ name: 'projects', query: { page: this.store.projects.currentPage, key: this.store.projects.searchKey } });
             this.getProjects();
         },
         prevPage() {
-            this.currentPage--;
-            this.$router.push({ name: 'projects', query: { page: this.currentPage } });
+            this.store.projects.currentPage--;
+            this.$router.push({ name: 'projects', query: { page: this.store.projects.currentPage, key: this.store.projects.searchKey } });
             this.getProjects();
         },
     },
     created() {
-        this.currentPage = this.$route.query.page ?? 1;
+        this.store.projects.currentPage = this.$route.query.page ?? 1;
+        this.store.projects.searchKey = this.$route.query.key ?? null;
         this.getProjects();
     }
 }
@@ -54,6 +58,7 @@ export default {
         <div class="container">
             <h2 class="mt-4">Progetti</h2>
             <ProjectSearch @search-project="getProjects" />
+            <div v-if="errors" class="alert alert-danger mt-4" role="alert">{{ errors }}</div>
             <div class="row">
                 <ProjectCard v-for="project in responseData.results?.data" :project="project" />
             </div>
