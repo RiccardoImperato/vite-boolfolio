@@ -39,7 +39,8 @@ export default {
     <div class="container text-center py-5">
         <h2>{{ project.title }}</h2>
         <p>{{ project.description }}</p>
-        <!-- <router-link :to="{ name: 'single-project', params: { slug: '' } }" class="btn btn-primary">Progetti
-            correlati</router-link> -->
+        <router-link :to="{ name: 'projects', query: { page: store.projects.currentPage, key: store.projects.searchKey } }"
+            class="btn btn-primary">Torna ai
+            progetti</router-link>
     </div>
 </template>
